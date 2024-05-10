@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+<%- include('./partials/head.ejs') %>
+<body>
+    <%- include('./partials/navbar.ejs', { userId }) %>
+    
+    <div class="container mt-5">
+        <% if(data.length > 0) { %> 
+            <div id="accordion">
+                <% data.forEach((item, index) => { %>
+                    <div class="row mb-3">
+                        <div class="col">
+                            <div class="list-group">
+                                <!-- Button to toggle collapse -->
+                                <% const truncatedContent = item.content.split(' ').slice(0, 10).join(' ') + (item.content.split(' ').length > 10 ? '...' : ''); %>
+                                <button class="list-group-item list-group-item-action" type="button" data-bs-toggle="collapse" data-bs-target="#collapse<%= index + 1 %>" aria-expanded="false" aria-controls="collapse<%= index + 1 %>" aria-controls="collapse<%= index + 1 %>">
+                                    <!-- Set button text to first 10 words of item.content -->
+                                    <%= truncatedContent %>
+                                </button>
+                                <!-- Collapsible content -->
+                                <div class="collapse" id="collapse<%= index + 1 %>">
+                                    <!-- Content for collapse element -->
+                                    <div class="list-group-item">
+                                        <%= item.content %>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                <% }) %>
+            </div>
+        <% } else { %>
+            <div class="row">
+                <div class="col">
+                    <p>No data available</p>
+                </div>
+            </div>
+        <% } %>
+    </div>
+    
+    <%- include('./partials/script.ejs') %>
+</body>
+</html>
