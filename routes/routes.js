@@ -20,4 +20,8 @@ router.post('/genrator', authenticate, genrator.genrateContent)
 
 router.get('/history', authenticate, user.history)
 
+router.get('/', (req, res) => {
+    res.redirect('/genrator')
+})
+
 module.exports = router
